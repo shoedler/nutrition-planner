@@ -1,15 +1,16 @@
-import { useState } from "preact/hooks";
-
+import { useComputed, useSignal } from "@preact/signals";
 import StackedBarChart, {
   BAR_COLORS,
-  BarSegment,
+  BarData,
 } from "../components/StackedBarChart.tsx";
-import rawCaps from "../static/data/caps.json" with { type: "json" };
-import rawDrinkMixes from "../static/data/drink-mixes.json" with {
-  type: "json",
-};
-import rawDrinks from "../static/data/drinks.json" with { type: "json" };
-import rawGels from "../static/data/gels.json" with { type: "json" };
+
+import capsules from "../static/data/caps.json" with { type: "json" };
+import drinkMixes from "../static/data/drink-mixes.json" with { type: "json" };
+import drinks from "../static/data/drinks.json" with { type: "json" };
+import gels from "../static/data/gels.json" with { type: "json" };
+
+import { ItemSelectionList } from "../components/ItemSelectionList.tsx";
+import { TargetSliders } from "../components/TargetSliders.tsx";
 import {
   Capsule,
   Drink,
@@ -19,47 +20,34 @@ import {
   NutritionUtils,
 } from "../types.ts";
 
-const TARGET_CARBS_GRAMS_PER_HOUR = 70;
-const TARGET_SODIUM_MG_PER_LITER = 1500;
-const TARGET_FLUID_ML_PER_HOUR = 600;
-const EXCERCISE_DURATION_MINUTES = 60 * 8;
-
-const TARGET_FLUID = TARGET_FLUID_ML_PER_HOUR *
-  (EXCERCISE_DURATION_MINUTES / 60);
-const TARGET_CARBS = TARGET_CARBS_GRAMS_PER_HOUR *
-  (EXCERCISE_DURATION_MINUTES / 60);
-const TARGET_SODIUM = (TARGET_FLUID / 1000) * TARGET_SODIUM_MG_PER_LITER;
-
-const drinkMixes = rawDrinkMixes as DrinkMix[];
-const drinks = rawDrinks as Drink[];
-const gels = rawGels as Gel[];
-const capsules = rawCaps as Capsule[]; // Assuming capsules are similar to gels
+const allItems: NutritionItem[] = [
+  ...(drinkMixes as DrinkMix[]).map((x) => ({ ...x, type: "drinkMix" })),
+  ...(drinks as Drink[]).map((x) => ({ ...x, type: "drink" })),
+  ...(gels as Gel[]).map((x) => ({ ...x, type: "gel" })),
+  ...(capsules as Capsule[]).map((x) => ({ ...x, type: "capsule" })),
+];
 
 export default function SelectionList() {
-  const [selection, setSelection] = useState<{ [key: string]: number }>({});
+  const selection = useSignal<{ [key: string]: number }>({});
 
-  function add(key: string) {
-    setSelection((prev) => ({ ...prev, [key]: (prev[key] || 0) + 1 }));
-  }
+  const carbsPerHour = useSignal(70);
+  const sodiumPerLiter = useSignal(1500);
+  const fluidPerHour = useSignal(600);
+  const durationMinutes = useSignal(480);
 
-  function remove(key: string) {
-    setSelection((prev) => {
-      const current = prev[key] || 0;
-      if (current <= 0) return prev;
-      return { ...prev, [key]: current - 1 };
-    });
-  }
-
-  const allItems: NutritionItem[] = [
-    ...drinkMixes.map((x) => ({ ...x, type: "drinkMix" })),
-    ...drinks.map((x) => ({ ...x, type: "drink" })),
-    ...gels.map((x) => ({ ...x, type: "gel" })),
-    ...capsules.map((x) => ({ ...x, type: "capsule" })),
-  ];
+  const durationHours = useComputed(() => durationMinutes.value / 60);
+  const targetCarbs = useComputed(() =>
+    carbsPerHour.value * durationHours.value
+  );
+  const targetFluid = useComputed(() =>
+    fluidPerHour.value * durationHours.value
+  );
+  const targetSodium = useComputed(
+    () => (targetFluid.value / 1000) * sodiumPerLiter.value,
+  );
 
   const itemColorMap = new Map<string, string>();
   let colorIndex = 0;
-
   function getColor(itemName: string) {
     if (!itemColorMap.has(itemName)) {
       itemColorMap.set(itemName, BAR_COLORS[colorIndex % BAR_COLORS.length]);
@@ -68,92 +56,59 @@ export default function SelectionList() {
     return itemColorMap.get(itemName)!;
   }
 
-  const fluidSegments: BarSegment[] = [];
-  const carbSegments: BarSegment[] = [];
-  const sodiumSegments: BarSegment[] = [];
+  const fluidBar: BarData = {
+    label: "Fluid",
+    unit: "ml",
+    target: targetFluid.value,
+    segments: [],
+  };
+  const carbsBar: BarData = {
+    label: "Carbs",
+    unit: "g",
+    target: targetCarbs.value,
+    segments: [],
+  };
+  const sodiumBar: BarData = {
+    label: "Sodium",
+    unit: "mg",
+    target: targetSodium.value,
+    segments: [],
+  };
 
-  for (const item of allItems) {
-    const count = selection[item.name] || 0;
-    if (count <= 0) continue;
+  allItems.forEach((item) => {
+    const count = selection.value[item.name] || 0;
+    if (!count) return;
 
     const color = getColor(item.name);
-    const fluid = NutritionUtils.getFluidVolumeMilliliters(item);
-    const carbs = NutritionUtils.getCarbsGrams(item);
-    const sodium = NutritionUtils.getSodiumMilligrams(item);
+    const label = `${item.brand} ${item.name}`;
 
-    if (fluid > 0) {
-      fluidSegments.push({
-        label: item.name,
-        valuePerItem: fluid,
-        itemCount: count,
-        color,
+    [
+      [fluidBar.segments, NutritionUtils.getFluidVolumeMilliliters(item)],
+      [carbsBar.segments, NutritionUtils.getCarbsGrams(item)],
+      [sodiumBar.segments, NutritionUtils.getSodiumMilligrams(item)],
+    ]
+      .filter(([, value]) => value > 0)
+      .forEach(([segments, valuePerItem]) => {
+        segments.push({
+          label,
+          valuePerItem,
+          itemCount: count,
+          color,
+        });
       });
-    }
-    if (carbs > 0) {
-      carbSegments.push({
-        label: item.name,
-        valuePerItem: carbs,
-        itemCount: count,
-        color,
-      });
-    }
-    if (sodium > 0) {
-      sodiumSegments.push({
-        label: item.name,
-        valuePerItem: sodium,
-        itemCount: count,
-        color,
-      });
-    }
-  }
+  });
 
-  const bars = [
-    { label: "Fluid (ml)", target: TARGET_FLUID, segments: fluidSegments },
-    { label: "Carbs (g)", target: TARGET_CARBS, segments: carbSegments },
-    { label: "Sodium (mg)", target: TARGET_SODIUM, segments: sodiumSegments },
-  ];
+  const bars: BarData[] = [fluidBar, carbsBar, sodiumBar];
 
   return (
     <>
-      <div class="space-y-2 mb-8">
-        {allItems.map((item) => (
-          <div key={item.name} class="border-b pb-2">
-            <div class="flex justify-between items-center">
-              <div>
-                <div class="font-semibold">{item.brand} {item.name}</div>
-                <div class="text-sm text-gray-400">
-                  {NutritionUtils.getServingSizeString(item)}
-                  {" — "}
-                  {item.nutritionFactsPerServing.carbohydratesGrams}g carbs
-                  {" — "}
-                  {NutritionUtils.getSodiumMilligrams(item)} mg sodium
-                  {"equatesToMilliliters" in item
-                    ? ` — ${item.equatesToMilliliters} ml fluid`
-                    : ""}
-                </div>
-              </div>
-              <div class="flex items-center space-x-1">
-                <button
-                  type="button"
-                  class="border rounded px-2"
-                  onClick={() => remove(item.name)}
-                >
-                  -
-                </button>
-                <span>{selection[item.name] || 0}</span>
-                <button
-                  type="button"
-                  class="border rounded px-2"
-                  onClick={() => add(item.name)}
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
+      <TargetSliders
+        carbsPerHour={carbsPerHour}
+        sodiumPerLiter={sodiumPerLiter}
+        fluidPerHour={fluidPerHour}
+        durationMinutes={durationMinutes}
+      />
+      <ItemSelectionList allItems={allItems} selection={selection} />
       <StackedBarChart bars={bars} />
     </>
   );

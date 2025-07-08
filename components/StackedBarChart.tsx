@@ -18,6 +18,7 @@ export interface BarSegment {
 
 export interface BarData {
   label: string;
+  unit: string;
   target: number;
   segments: BarSegment[];
 }
@@ -44,29 +45,46 @@ function Bar({ bar, maxVal }: { bar: BarData; maxVal: number }) {
 
   return (
     <div>
-      <div class="flex justify-between mb-1">
-        <span class="text-sm font-medium text-gray-200">{bar.label}</span>
-        <span class="text-sm text-gray-200">
-          {Math.round(total)} ({diffString(total, bar.target)} vs{" "}
-          {Math.round(bar.target)})
-        </span>
-      </div>
+      <BarTotalsText bar={bar} total={total} />
       <div class="relative overflow-visible">
         <div class="relative h-8 bg-white/10 backdrop-blur-xs rounded flex overflow-visible">
-          <Items segments={bar.segments} maxVal={maxVal} />
-          <TargetLine
+          <BarSegments segments={bar.segments} maxVal={maxVal} />
+          <BarTargetLine
             targetPercent={targetPercent}
             barPercent={barPercent}
             showTargetLine={showTargetLine}
           />
         </div>
-        <ItemLabels segments={bar.segments} maxVal={maxVal} />
+        <BarSegmentLabels segments={bar.segments} maxVal={maxVal} />
       </div>
     </div>
   );
 }
 
-function Items(
+function BarTotalsText(
+  { bar, total }: { bar: BarData; total: number },
+) {
+  return (
+    <div class="flex justify-between mb-1">
+      <span class="text-sm font-medium text-gray-200">
+        {bar.label} ({bar.unit})
+      </span>
+      <div>
+        <span class="text-sm text-gray-200">
+          {Math.round(total)}
+          {bar.unit} {" "}
+        </span>
+        <span class="text-sm text-gray-400">
+          ({diffString(total, bar.target)}
+          {bar.unit} vs {Math.round(bar.target)}
+          {bar.unit})
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function BarSegments(
   { segments, maxVal }: { segments: BarSegment[]; maxVal: number },
 ) {
   return (
@@ -87,31 +105,33 @@ function Items(
   );
 }
 
-function ItemLabels(
+function BarSegmentLabels(
   { segments, maxVal }: { segments: BarSegment[]; maxVal: number },
 ) {
-  const labelPositions = getLabelPositions(segments, maxVal);
+  const labelPositions = getSegmentLabelPositions(segments, maxVal);
 
   return (
-    <div class="flex relative mt-1 h-4 items-start">
+    <div class="flex relative mt-1 h-8 items-start">
       {labelPositions.map(({ label, width, left }) => (
         <div
-          class="absolute text-xs text-gray-400 flex flex-col items-center"
+          class="absolute flex flex-col items-center"
           style={{
             left: `${left}%`,
             width: `${width}%`,
           }}
           key={label}
         >
-          <LabelSpanLine />
-          <div class="mt-3">{label}</div>
+          <BarSegmentLabelLine />
+          <div class="mt-3 px-1 text-xs w-full text-gray-400 line-clamp-2">
+            {label}
+          </div>
         </div>
       ))}
     </div>
   );
 }
 
-function LabelSpanLine() {
+function BarSegmentLabelLine() {
   return (
     <svg
       class="absolute top-0 left-0 w-full h-full mt-1 px-1"
@@ -128,7 +148,7 @@ function LabelSpanLine() {
   );
 }
 
-function TargetLine(
+function BarTargetLine(
   { targetPercent, barPercent, showTargetLine }: {
     targetPercent: number;
     barPercent: number;
@@ -139,7 +159,7 @@ function TargetLine(
   return (
     <>
       <div
-        class="absolute border-l-2 border-red-500 h-full"
+        class="absolute border-l-2 border-red-400 h-full"
         style={{
           left: `${targetPercent}%`,
           top: 0,
@@ -157,7 +177,7 @@ function TargetLine(
   );
 }
 
-function getLabelPositions(
+function getSegmentLabelPositions(
   segments: BarSegment[],
   maxVal: number,
 ): { label: string; left: number; width: number }[] {
