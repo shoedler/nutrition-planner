@@ -1,0 +1,42 @@
+[
+  {
+    "brand": "",
+    "name": "Water",
+    "flavor": "Plain",
+    "servingSizeMilliliters": 100,
+    "nutritionFactsPerServing": {
+      "kilocalories": 0,
+      "fatGrams": 0,
+      "saturatedFatGrams": 0,
+      "carbohydratesGrams": 0,
+      "sugarsGrams": 0,
+      "fiberGrams": 0,
+      "proteinGrams": 0,
+      "saltGrams": 0,
+      "caffeineMilligrams": 0,
+      "potassiumMilligrams": 0,
+      "calciumMilligrams": 0,
+      "magnesiumMilligrams": 0
+    }
+  },
+  {
+    "brand": "Coca-Cola",
+    "name": "Original",
+    "flavor": "Cola",
+    "servingSizeMilliliters": 100,
+    "nutritionFactsPerServing": {
+      "kilocalories": 42,
+      "fatGrams": 0,
+      "saturatedFatGrams": 0,
+      "carbohydratesGrams": 10.6,
+      "sugarsGrams": 10.6,
+      "fiberGrams": 0,
+      "proteinGrams": 0,
+      "saltGrams": 0,
+      "caffeineMilligrams": 10,
+      "potassiumMilligrams": 1,
+      "calciumMilligrams": 0,
+      "magnesiumMilligrams": 0
+    }
+  }
+]

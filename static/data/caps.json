@@ -1,0 +1,22 @@
+[
+  {
+    "brand": "SaltStick",
+    "name": "Electrolyte Caps",
+    "flavor": "Unflavored",
+    "servingSizeUnits": 1,
+    "nutritionFactsPerServing": {
+      "kilocalories": 0,
+      "fatGrams": 0,
+      "saturatedFatGrams": 0,
+      "carbohydratesGrams": 0,
+      "sugarsGrams": 0,
+      "fiberGrams": 0,
+      "proteinGrams": 0,
+      "sodiumMilligrams": 215,
+      "chlorideMilligrams": 349,
+      "potassiumMilligrams": 63,
+      "calciumMilligrams": 22,
+      "magnesiumMilligrams": 11
+    }
+  }
+]

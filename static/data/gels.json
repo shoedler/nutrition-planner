@@ -1,0 +1,62 @@
+[
+  {
+    "brand": "Precision Fuel & Hydration",
+    "name": "PF 30 Gel",
+    "flavor": "Original",
+    "servingSizeGrams": 51,
+    "glucoseToFructoseRatio": 2,
+    "nutritionFactsPerServing": {
+      "kilocalories": 120,
+      "fatGrams": 0.02,
+      "saturatedFatGrams": 0,
+      "carbohydratesGrams": 30,
+      "fiberGrams": 0,
+      "proteinGrams": 0.02,
+      "saltGrams": 0,
+      "caffeineMilligrams": 0,
+      "potassiumMilligrams": 0,
+      "calciumMilligrams": 0,
+      "magnesiumMilligrams": 0
+    }
+  },
+  {
+    "brand": "Precision Fuel & Hydration",
+    "name": "PF 90 Gel",
+    "flavor": "Original",
+    "servingSizeGrams": 153,
+    "glucoseToFructoseRatio": 2,
+    "nutritionFactsPerServing": {
+      "kilocalories": 360,
+      "fatGrams": 0.06,
+      "saturatedFatGrams": 0,
+      "carbohydratesGrams": 90,
+      "fiberGrams": 0,
+      "proteinGrams": 0.06,
+      "saltGrams": 0,
+      "caffeineMilligrams": 0,
+      "potassiumMilligrams": 0,
+      "calciumMilligrams": 0,
+      "magnesiumMilligrams": 0
+    }
+  },
+  {
+    "brand": "Precision Fuel & Hydration",
+    "name": "PF 60 Chew",
+    "flavor": "Original",
+    "servingSizeGrams": 68,
+    "glucoseToFructoseRatio": 2,
+    "nutritionFactsPerServing": {
+      "kilocalories": 240,
+      "fatGrams": 0.04,
+      "saturatedFatGrams": 0,
+      "carbohydratesGrams": 60,
+      "fiberGrams": 0,
+      "proteinGrams": 0.04,
+      "saltGrams": 0,
+      "caffeineMilligrams": 0,
+      "potassiumMilligrams": 0,
+      "calciumMilligrams": 0,
+      "magnesiumMilligrams": 0
+    }
+  }
+]
