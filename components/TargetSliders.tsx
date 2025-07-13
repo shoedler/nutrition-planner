@@ -1,4 +1,5 @@
 import { Signal, useComputed } from "@preact/signals";
+import LargeNumberInput from "./LargeNumberInput.tsx";
 
 type Props = {
   carbsPerHour: Signal<number>;
@@ -13,61 +14,38 @@ export function TargetSliders({
   fluidPerHour,
   durationMinutes,
 }: Props) {
+  const carbsProps = {
+    label: "carbs",
+    value: carbsPerHour.value,
+    unit: "g/h",
+    onChange: (value: number) => carbsPerHour.value = value,
+    min: 0,
+    max: 120,
+  };
+  const fluidProps = {
+    label: "fluid",
+    value: fluidPerHour.value,
+    unit: "ml/h",
+    onChange: (value: number) => fluidPerHour.value = value,
+    min: 0,
+    max: 2000,
+  };
+  const sodiumProps = {
+    label: "sodium",
+    value: sodiumPerLiter.value,
+    unit: "mg/l",
+    onChange: (value: number) => sodiumPerLiter.value = value,
+    min: 0,
+    max: 2000,
+  };
+
   return (
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-      <Slider label="Carbs (g/h)" signal={carbsPerHour} min={0} max={120} />
-      <Slider
-        label="Sodium (mg/L)"
-        signal={sodiumPerLiter}
-        min={0}
-        max={2000}
-      />
-      <Slider label="Fluid (ml/h)" signal={fluidPerHour} min={0} max={2000} />
+    <div class="w-full flex flex-row justify-around gap-2">
+      <LargeNumberInput {...carbsProps} />
+      <LargeNumberInput {...fluidProps} />
+      <LargeNumberInput {...sodiumProps} />
       <DurationInput signal={durationMinutes} />
     </div>
-  );
-}
-
-function Slider({
-  label,
-  signal,
-  min,
-  max,
-}: {
-  label: string;
-  signal: Signal<number>;
-  min: number;
-  max: number;
-}) {
-  function setValue(val: number) {
-    const clamped = Math.max(min, Math.min(max, val));
-    signal.value = clamped;
-  }
-
-  return (
-    <label class="flex flex-col text-gray-300 space-y-1">
-      <span class="font-semibold">{label}</span>
-      <div class="flex items-center space-x-2">
-        <input
-          type="range"
-          min={min}
-          max={max}
-          value={signal.value}
-          onInput={(e) =>
-            setValue(Number((e.target as HTMLInputElement).value))}
-          class="w-full accent-gray-400"
-        />
-        <input
-          type="number"
-          min={min}
-          max={max}
-          value={signal.value}
-          onInput={(e) =>
-            setValue(Number((e.target as HTMLInputElement).value))}
-          class="w-20 text-right px-2 py-1 border-2 rounded bg-transparent hover:bg-white/10 transition-colors font-mono"
-        />
-      </div>
-    </label>
   );
 }
 
@@ -76,25 +54,22 @@ function DurationInput({ signal }: { signal: Signal<number> }) {
   const minutes = useComputed(() => signal.value % 60);
 
   return (
-    <label class="flex flex-col text-gray-300 space-y-1">
-      <span class="font-semibold">Excercise Duration (minutes)</span>
-      <div class="flex items-center space-x-2">
-        <input
-          type="number"
-          min={0}
-          max={10000}
-          value={signal.value}
-          onInput={(e) =>
-            signal.value = Math.max(
-              0,
-              Number((e.target as HTMLInputElement).value),
-            )}
-          class="w-24 text-right px-2 py-1 border-2 rounded bg-transparent hover:bg-white/10 transition-colors font-mono"
-        />
-        <span class="text-gray-400 text-sm">
-          {`→ ${hours.value} h ${minutes.value} min`}
-        </span>
-      </div>
-    </label>
+    <div class="flex items-center space-x-2">
+      <LargeNumberInput
+        label="duration"
+        min={0}
+        max={10000}
+        value={signal.value}
+        onChange={(newVal) =>
+          signal.value = Math.max(
+            0,
+            newVal,
+          )}
+        unit="min"
+      />
+      <span class="text-gray-400 text-sm">
+        {`→ ${hours.value} h ${minutes.value} min`}
+      </span>
+    </div>
   );
 }

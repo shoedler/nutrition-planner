@@ -2,6 +2,7 @@ import { useComputed, useSignal } from "@preact/signals";
 import StackedBarChart, {
   BAR_COLORS,
   BarData,
+  BarSegment,
 } from "../components/StackedBarChart.tsx";
 
 import capsules from "../static/data/caps.json" with { type: "json" };
@@ -9,8 +10,10 @@ import drinkMixes from "../static/data/drink-mixes.json" with { type: "json" };
 import drinks from "../static/data/drinks.json" with { type: "json" };
 import gels from "../static/data/gels.json" with { type: "json" };
 
+import { HeadingLarge } from "../components/HeadingLarge.tsx";
 import { ItemSelectionList } from "../components/ItemSelectionList.tsx";
 import { TargetSliders } from "../components/TargetSliders.tsx";
+import { Title } from "../components/Title.tsx";
 import {
   Capsule,
   Drink,
@@ -27,7 +30,7 @@ const allItems: NutritionItem[] = [
   ...(capsules as Capsule[]).map((x) => ({ ...x, type: "capsule" })),
 ];
 
-export default function SelectionList() {
+export default function NutritionPlanner() {
   const selection = useSignal<{ [key: string]: number }>({});
 
   const carbsPerHour = useSignal(70);
@@ -57,19 +60,19 @@ export default function SelectionList() {
   }
 
   const fluidBar: BarData = {
-    label: "Fluid",
+    label: "fluid",
     unit: "ml",
     target: targetFluid.value,
     segments: [],
   };
   const carbsBar: BarData = {
-    label: "Carbs",
+    label: "carbs",
     unit: "g",
     target: targetCarbs.value,
     segments: [],
   };
   const sodiumBar: BarData = {
-    label: "Sodium",
+    label: "sodium",
     unit: "mg",
     target: targetSodium.value,
     segments: [],
@@ -87,11 +90,11 @@ export default function SelectionList() {
       [carbsBar.segments, NutritionUtils.getCarbsGrams(item)],
       [sodiumBar.segments, NutritionUtils.getSodiumMilligrams(item)],
     ]
-      .filter(([, value]) => value > 0)
+      .filter(([, value]) => value as number > 0) // Type-forcing, bc Deno doesn't support type narrowing in destructuring
       .forEach(([segments, valuePerItem]) => {
-        segments.push({
+        (segments as BarSegment[]).push({ // Type-forcing, bc Deno doesn't support type narrowing in destructuring
           label,
-          valuePerItem,
+          valuePerItem: (valuePerItem as number), // Type-forcing, bc Deno doesn't support type narrowing in destructuring
           itemCount: count,
           color,
         });
@@ -100,16 +103,27 @@ export default function SelectionList() {
 
   const bars: BarData[] = [fluidBar, carbsBar, sodiumBar];
 
+  const usableWindowHeightThird = useComputed(() => {
+    const height = globalThis.innerHeight - 100; // Adjust for header and padding
+    return Math.max(height / 3, 300); // Minimum height of 300px
+  });
+
   return (
-    <>
+    <div class="flex flex-col items-center min-w-[900px] max-w-[1200px] m-auto gap-10">
+      <Title />
       <TargetSliders
         carbsPerHour={carbsPerHour}
         sodiumPerLiter={sodiumPerLiter}
         fluidPerHour={fluidPerHour}
         durationMinutes={durationMinutes}
       />
-      <ItemSelectionList allItems={allItems} selection={selection} />
+      <ItemSelectionList
+        allItems={allItems}
+        selection={selection}
+        heightPx={usableWindowHeightThird.value}
+      />
+      <HeadingLarge>targets</HeadingLarge>
       <StackedBarChart bars={bars} />
-    </>
+    </div>
   );
 }

@@ -25,7 +25,7 @@ export interface BarData {
 
 export default function StackedBarChart({ bars }: { bars: BarData[] }) {
   return (
-    <div class="space-y-6">
+    <div class="w-full space-y-6">
       {bars.map((bar) => (
         <Bar
           key={bar.label}

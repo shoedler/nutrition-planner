@@ -35,3 +35,22 @@ body {
   background-color: #181818;
   position: relative;
 }
+
+.clean-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #9ca3af transparent; /* thumb and track */
+}
+
+.clean-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.clean-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #9ca3af; /* thumb */
+  border-radius: 4px;
+}
+.clean-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent; /* track */
+}
+.clean-scrollbar::-webkit-scrollbar-button {
+  display: none;
+}
