@@ -1,6 +1,5 @@
 import { useComputed, useSignal } from "@preact/signals";
 import StackedBarChart, {
-  BAR_COLORS,
   BarData,
   BarSegment,
 } from "../components/StackedBarChart.tsx";
@@ -36,7 +35,7 @@ export default function NutritionPlanner() {
   const carbsPerHour = useSignal(70);
   const sodiumPerLiter = useSignal(1500);
   const fluidPerHour = useSignal(600);
-  const durationMinutes = useSignal(480);
+  const durationMinutes = useSignal(1100);
 
   const durationHours = useComputed(() => durationMinutes.value / 60);
   const targetCarbs = useComputed(() =>
@@ -48,16 +47,6 @@ export default function NutritionPlanner() {
   const targetSodium = useComputed(
     () => (targetFluid.value / 1000) * sodiumPerLiter.value,
   );
-
-  const itemColorMap = new Map<string, string>();
-  let colorIndex = 0;
-  function getColor(itemName: string) {
-    if (!itemColorMap.has(itemName)) {
-      itemColorMap.set(itemName, BAR_COLORS[colorIndex % BAR_COLORS.length]);
-      colorIndex++;
-    }
-    return itemColorMap.get(itemName)!;
-  }
 
   const fluidBar: BarData = {
     label: "fluid",
@@ -79,11 +68,12 @@ export default function NutritionPlanner() {
   };
 
   allItems.forEach((item) => {
-    const count = selection.value[item.name] || 0;
+    const key = NutritionUtils.getItemKey(item);
+    const count = selection.value[key] || 0;
     if (!count) return;
 
-    const color = getColor(item.name);
-    const label = `${item.brand} ${item.name}`;
+    const color = item.metaColor;
+    const label = `${item.brand} ${item.name} ${item.flavor || ""}`.trim();
 
     [
       [fluidBar.segments, NutritionUtils.getFluidVolumeMilliliters(item)],

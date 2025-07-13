@@ -18,6 +18,29 @@
       "potassiumMilligrams": 200,
       "calciumMilligrams": 20,
       "magnesiumMilligrams": 50
-    }
+    },
+    "metaColor": "#6cab66"
+  },
+  {
+    "brand": "Nääk®",
+    "name": "Ultra Energy",
+    "flavor": "Watermelon",
+    "servingSizeGrams": 72,
+    "equatesToMilliliters": 500,
+    "nutritionFactsPerServing": {
+      "kilocalories": 250,
+      "fatGrams": 0.2,
+      "saturatedFatGrams": 0,
+      "carbohydratesGrams": 55,
+      "sugarsGrams": 38,
+      "fiberGrams": 0,
+      "proteinGrams": 8,
+      "saltGrams": 1,
+      "caffeineMilligrams": 0,
+      "potassiumMilligrams": 200,
+      "calciumMilligrams": 20,
+      "magnesiumMilligrams": 50
+    },
+    "metaColor": "#c72841"
   }
 ]

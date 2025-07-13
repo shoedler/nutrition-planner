@@ -94,15 +94,18 @@ function BrandSection(
   return (
     <div>
       <HeadingMedium>{brand}</HeadingMedium>
-      {/* <div class="text-gray-200 font-semibold mt-1">{brand}</div> */}
-      {items.map((item) => (
-        <ItemRow
-          key={item.name}
-          item={item}
-          count={selection.value[item.name] || 0}
-          onChange={(newCount) => setItemCount(item.name, newCount)}
-        />
-      ))}
+      {items.map((item) => {
+        const key = NutritionUtils.getItemKey(item);
+
+        return (
+          <ItemRow
+            key={key}
+            item={item}
+            count={selection.value[key] || 0}
+            onChange={(newCount) => setItemCount(key, newCount)}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -118,7 +121,7 @@ function ItemRow(
     <div class="pl-3 py-1 flex items-center justify-between">
       <div class="flex-1 mr-2">
         <div class="text-sm font-body text-gray-200 inline-block mr-2">
-          {item.name}
+          {item.name} {item.flavor && <i>({item.flavor})</i>}
         </div>
         <span class="text-sm text-gray-400">
           {NutritionUtils.getServingSizeString(item)} —{" "}

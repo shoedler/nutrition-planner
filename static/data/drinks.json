@@ -17,7 +17,8 @@
       "potassiumMilligrams": 0,
       "calciumMilligrams": 0,
       "magnesiumMilligrams": 0
-    }
+    },
+    "metaColor": "#60a5fa"
   },
   {
     "brand": "Coca-Cola®",
@@ -37,6 +38,7 @@
       "potassiumMilligrams": 1,
       "calciumMilligrams": 0,
       "magnesiumMilligrams": 0
-    }
+    },
+    "metaColor": "#fe001a"
   }
 ]

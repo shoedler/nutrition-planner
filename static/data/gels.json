@@ -17,7 +17,8 @@
       "potassiumMilligrams": 0,
       "calciumMilligrams": 0,
       "magnesiumMilligrams": 0
-    }
+    },
+    "metaColor": "#f472b6"
   },
   {
     "brand": "Precision Fuel & Hydration®",
@@ -37,7 +38,8 @@
       "potassiumMilligrams": 0,
       "calciumMilligrams": 0,
       "magnesiumMilligrams": 0
-    }
+    },
+    "metaColor": "#f472b6"
   },
   {
     "brand": "Precision Fuel & Hydration®",
@@ -57,6 +59,7 @@
       "potassiumMilligrams": 0,
       "calciumMilligrams": 0,
       "magnesiumMilligrams": 0
-    }
+    },
+    "metaColor": "#facc15"
   }
 ]

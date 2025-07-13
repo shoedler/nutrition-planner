@@ -25,8 +25,11 @@ export type NutritionFactsPerServing = {
 export type Nutrition = {
   brand: string;
   name: string;
-  flavor?: string;
   nutritionFactsPerServing: NutritionFactsPerServing;
+
+  flavor?: string;
+
+  metaColor: `#${string}`; // Hex color code
 };
 
 export type DrinkMix = Nutrition & {
@@ -103,4 +106,8 @@ export const NutritionUtils = {
     }
     return "N/A";
   },
-};
+  getItemKey: (item: NutritionItem): string =>
+    [item.brand, item.name, item.flavor || ""].map((part) =>
+      part.replace(/[^a-zA-Z0-9]/g, "_").toLowerCase()
+    ).join("-"),
+} as const;

@@ -1,19 +1,8 @@
-export const BAR_COLORS = [
-  "bg-blue-400",
-  "bg-green-400",
-  "bg-pink-400",
-  "bg-yellow-400",
-  "bg-purple-400",
-  "bg-red-400",
-  "bg-orange-400",
-  "bg-teal-400",
-];
-
 export interface BarSegment {
   label: string; // item name
   valuePerItem: number;
   itemCount: number;
-  color: string;
+  color: `${string}`; // Hex color code
 }
 
 export interface BarData {
@@ -92,9 +81,10 @@ function BarSegments(
       {segments.map((seg) =>
         Array.from({ length: seg.itemCount }).map((_, idx) => (
           <div
-            class={`h-8 border border-black rounded ${seg.color}`}
+            class={`h-8 border border-black rounded`}
             style={{
               width: `${(seg.valuePerItem / maxVal) * 100}%`,
+              backgroundColor: seg.color,
             }}
             title={`${seg.label}: ${seg.itemCount * seg.valuePerItem}`}
             key={`${seg.label}-${idx}`}
