@@ -18,7 +18,8 @@
       "calciumMilligrams": 0,
       "magnesiumMilligrams": 0
     },
-    "metaColor": "#60a5fa"
+    "metaColor": "#60a5fa",
+    "metaType": "drink"
   },
   {
     "brand": "Coca-Cola®",
@@ -39,6 +40,49 @@
       "calciumMilligrams": 0,
       "magnesiumMilligrams": 0
     },
-    "metaColor": "#fe001a"
+    "metaColor": "#fe001a",
+    "metaType": "drink"
+  },
+  {
+    "brand": "Precision Fuel & Hydration®",
+    "name": "PF 1500",
+    "flavor": "Unflavored",
+    "servingSizeMilliliters": 500,
+    "nutritionFactsPerServing": {
+      "kilocalories": 16,
+      "fatGrams": 0,
+      "saturatedFatGrams": 0,
+      "carbohydratesGrams": 1.8,
+      "sugarsGrams": 1.0,
+      "fiberGrams": 0,
+      "proteinGrams": 0,
+      "sodiumMilligrams": 750,
+      "potassiumMilligrams": 125,
+      "calciumMilligrams": 24,
+      "magnesiumMilligrams": 12
+    },
+    "metaColor": "#6E3B83",
+    "metaType": "drink"
+  },
+  {
+    "brand": "Precision Fuel & Hydration®",
+    "name": "PF 1000",
+    "flavor": "Unflavored",
+    "servingSizeMilliliters": 500,
+    "nutritionFactsPerServing": {
+      "kilocalories": 16,
+      "fatGrams": 0,
+      "saturatedFatGrams": 0,
+      "carbohydratesGrams": 2.2,
+      "sugarsGrams": 2.0,
+      "fiberGrams": 0,
+      "proteinGrams": 0,
+      "sodiumMilligrams": 500,
+      "potassiumMilligrams": 125,
+      "calciumMilligrams": 24,
+      "magnesiumMilligrams": 12
+    },
+    "metaColor": "#C75A16",
+    "metaType": "drink"
   }
 ]

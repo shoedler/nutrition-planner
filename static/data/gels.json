@@ -18,7 +18,8 @@
       "calciumMilligrams": 0,
       "magnesiumMilligrams": 0
     },
-    "metaColor": "#f472b6"
+    "metaColor": "#f472b6",
+    "metaType": "gel"
   },
   {
     "brand": "Precision Fuel & Hydration®",
@@ -39,7 +40,8 @@
       "calciumMilligrams": 0,
       "magnesiumMilligrams": 0
     },
-    "metaColor": "#f472b6"
+    "metaColor": "#f472b6",
+    "metaType": "gel"
   },
   {
     "brand": "Precision Fuel & Hydration®",
@@ -60,6 +62,122 @@
       "calciumMilligrams": 0,
       "magnesiumMilligrams": 0
     },
-    "metaColor": "#facc15"
+    "metaColor": "#facc15",
+    "metaType": "chew"
+  },
+  {
+    "brand": "Nääk®",
+    "name": "Ultra Energy Gel",
+    "flavor": "Salted Maple",
+    "servingSizeGrams": 56.5,
+    "glucoseToFructoseRatio": 3,
+    "nutritionFactsPerServing": {
+      "kilocalories": 200,
+      "fatGrams": 9,
+      "saturatedFatGrams": 0.5,
+      "carbohydratesGrams": 27,
+      "sugarsGrams": 14,
+      "fiberGrams": 1,
+      "proteinGrams": 2,
+      "sodiumMilligrams": 187,
+      "caffeineMilligrams": 0,
+      "potassiumMilligrams": 175,
+      "calciumMilligrams": 36,
+      "magnesiumMilligrams": 21
+    },
+    "metaColor": "#b5332f",
+    "metaType": "gel"
+  },
+  {
+    "brand": "Nääk®",
+    "name": "Ultra Energy Gel",
+    "flavor": "Chocolate",
+    "servingSizeGrams": 56.5,
+    "glucoseToFructoseRatio": 3,
+    "nutritionFactsPerServing": {
+      "kilocalories": 200,
+      "fatGrams": 9,
+      "saturatedFatGrams": 0.5,
+      "carbohydratesGrams": 27,
+      "sugarsGrams": 13,
+      "fiberGrams": 1,
+      "proteinGrams": 3,
+      "sodiumMilligrams": 184,
+      "caffeineMilligrams": 0,
+      "potassiumMilligrams": 205,
+      "calciumMilligrams": 46,
+      "magnesiumMilligrams": 21
+    },
+    "metaColor": "#874c3c",
+    "metaType": "gel"
+  },
+  {
+    "brand": "Homemade",
+    "name": "Rocketfuel 750ml Bottle 540g Carbs",
+    "flavor": "Unflavored",
+    "servingSizeGrams": 975,
+    "glucoseToFructoseRatio": 2.18,
+    "nutritionFactsPerServing": {
+      "kilocalories": 2160,
+      "fatGrams": 0,
+      "saturatedFatGrams": 0,
+      "carbohydratesGrams": 540,
+      "sugarsGrams": 170,
+      "fiberGrams": 0,
+      "proteinGrams": 0,
+      "sodiumMilligrams": 2068,
+      "caffeineMilligrams": 0,
+      "potassiumMilligrams": 612,
+      "calciumMilligrams": 368,
+      "magnesiumMilligrams": 0
+    },
+    "metaColor": "#F4C2C2",
+    "metaType": "gel"
+  },
+  {
+    "brand": "Homemade",
+    "name": "Rocketfuel 500ml Bottle 360g Carbs",
+    "flavor": "Unflavored",
+    "servingSizeGrams": 650,
+    "glucoseToFructoseRatio": 2.18,
+    "nutritionFactsPerServing": {
+      "kilocalories": 1440,
+      "fatGrams": 0,
+      "saturatedFatGrams": 0,
+      "carbohydratesGrams": 360,
+      "sugarsGrams": 113,
+      "fiberGrams": 0,
+      "proteinGrams": 0,
+      "sodiumMilligrams": 1379,
+      "caffeineMilligrams": 0,
+      "potassiumMilligrams": 408,
+      "calciumMilligrams": 245,
+      "magnesiumMilligrams": 0
+    },
+    "metaColor": "#F4C2C2",
+    "metaType": "gel"
+  },
+  {
+    "brand": "Homemade",
+    "name": "Rocketfuel 500ml Bottle 300g Carbs",
+    "flavor": "Unflavored",
+    "servingSizeGrams": 500,
+    "glucoseToFructoseRatio": 2.18,
+    "nutritionFactsPerServing": {
+      "kilocalories": 1200,
+      "fatGrams": 0,
+      "saturatedFatGrams": 0,
+      "carbohydratesGrams": 300,
+      "sugarsGrams": 94,
+      "fiberGrams": 0,
+      "proteinGrams": 0,
+      "sodiumMilligrams": 1149,
+      "caffeineMilligrams": 0,
+      "potassiumMilligrams": 340,
+      "calciumMilligrams": 204,
+      "magnesiumMilligrams": 0
+    },
+    "metaColor": "#F4C2C2",
+    "metaType": "gel"
   }
 ]

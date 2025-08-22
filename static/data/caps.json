@@ -18,6 +18,7 @@
       "calciumMilligrams": 22,
       "magnesiumMilligrams": 11
     },
-    "metaColor": "#f0f0f0"
+    "metaColor": "#f0f0f0",
+    "metaType": "capsule"
   }
 ]

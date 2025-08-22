@@ -35,24 +35,32 @@ export type Nutrition = {
 export type DrinkMix = Nutrition & {
   equatesToMilliliters: number;
   servingSizeGrams: number;
+
+  metaType: "drink-mix";
 };
 
 export type Drink = Nutrition & {
   servingSizeMilliliters: number;
+
+  metaType: "drink";
 };
 
 export type Gel = Nutrition & {
   servingSizeGrams: number;
   glucoseToFructoseRatio: number;
+
+  metaType: "gel" | "chew";
 };
 
 export type Capsule = Nutrition & {
   servingSizeUnits: number;
+
+  metaType: "capsule";
 };
 
 export type NutritionItem = DrinkMix | Drink | Gel | Capsule;
 
-const SODIUM_IN_SALT_RATIO = 0.393;
+const SODIUM_IN_SALT_RATIO = 0.3876; // https://fdc.nal.usda.gov/food-details/173468/nutrients
 
 export const NutritionUtils = {
   getCarbsGrams: (item: NutritionItem): number => {

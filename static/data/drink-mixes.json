@@ -19,7 +19,8 @@
       "calciumMilligrams": 20,
       "magnesiumMilligrams": 50
     },
-    "metaColor": "#6cab66"
+    "metaColor": "#6cab66",
+    "metaType": "drink-mix"
   },
   {
     "brand": "Nääk®",
@@ -41,6 +42,7 @@
       "calciumMilligrams": 20,
       "magnesiumMilligrams": 50
     },
-    "metaColor": "#c72841"
+    "metaColor": "#c72841",
+    "metaType": "drink-mix"
   }
 ]

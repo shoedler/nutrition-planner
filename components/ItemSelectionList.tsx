@@ -25,7 +25,9 @@ export function ItemSelectionList(
     const query = search.value.trim().toLowerCase().replace(/\s+/g, "");
     if (!query) return allItems;
     if (query === "$used") {
-      return allItems.filter((item) => (selection.value[item.name] || 0) > 0);
+      return allItems.filter((item) =>
+        (selection.value[NutritionUtils.getItemKey(item)] || 0) > 0
+      );
     }
     return allItems.filter((item) => {
       const haystack = (item.brand + item.name).toLowerCase().replace(
@@ -121,7 +123,7 @@ function ItemRow(
     <div class="pl-3 py-1 flex items-center justify-between">
       <div class="flex-1 mr-2">
         <div class="text-sm font-body text-gray-200 inline-block mr-2">
-          {item.name} {item.flavor && <i>({item.flavor})</i>}
+          {item.name} {item.flavor && " — " + item.flavor}
         </div>
         <span class="text-sm text-gray-400">
           {NutritionUtils.getServingSizeString(item)} —{" "}

@@ -32,10 +32,10 @@ const allItems: NutritionItem[] = [
 export default function NutritionPlanner() {
   const selection = useSignal<{ [key: string]: number }>({});
 
-  const carbsPerHour = useSignal(70);
+  const carbsPerHour = useSignal(100);
   const sodiumPerLiter = useSignal(1500);
-  const fluidPerHour = useSignal(600);
-  const durationMinutes = useSignal(1100);
+  const fluidPerHour = useSignal(800);
+  const durationMinutes = useSignal(360);
 
   const durationHours = useComputed(() => durationMinutes.value / 60);
   const targetCarbs = useComputed(() =>
